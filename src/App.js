@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { LuClipboardEdit } from "react-icons/lu";
 import { IoAddCircle } from "react-icons/io5";
 import { IoMdCheckmark } from "react-icons/io";
+import { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const App = () => {
   const [text, setText] = useState("");
@@ -10,18 +12,34 @@ const App = () => {
   const [texedit,setTexedit]=useState("");
   const handlesubmit = (e) => {
     // console.log([...data,text]);
-    setData([
-      ...data, text
-    ]);
-    setText("");
+    if(!text)
+      {
+        toast("Add Info");
+      }
+      else
+      {
+        setData([
+          ...data, text
+        ]);
+        setText("");
+      }
+    
   }
   const handlesubmitedit = (e) => {
     // console.log([...data,text]);
-    setData([
-      ...data, texedit
-    ]);
-    setTexedit("");
-    setEdit(false);
+    if(!texedit)
+      {
+        toast("Add updated Info");
+      }
+      else
+      {
+        setData([
+          ...data, texedit
+        ]);
+        setTexedit("");
+        setEdit(false);
+      }
+    
   }
   const handlechange = (e) => {
     setText(e.target.value);
@@ -45,6 +63,7 @@ const App = () => {
   };
   return (
     <div className='flex flex-col pt-32 items-center'>
+    <Toaster />
       <div className='flex flex-col space-y-14 p-2 md:px-48 lg:px-48'>
         <div className='flex items-center justify-center text-purple-500 text-2xl'>
            <h1>TODO LIST</h1>
